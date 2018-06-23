@@ -6,10 +6,11 @@ namespace Agenda.Controllers
     public class PessoaController : Controller
     {
         // GET: Pessoa
+        private static RepositorioDePessoas _pessoas = new RepositorioDePessoas();
         public ActionResult Index()
         {
-            var pessoa = new Pessoa();
-            return View(pessoa);
+            //var pessoa = new Pessoa();
+            return View( _pessoas.listaPessoas);
         }
 
         // GET: Pessoa/Details/5
