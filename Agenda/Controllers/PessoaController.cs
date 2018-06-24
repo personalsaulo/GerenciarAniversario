@@ -8,10 +8,17 @@ namespace Agenda.Controllers
     {
         // GET: Pessoa
         private static RepositorioDePessoas _pessoas = new RepositorioDePessoas();
-        public ActionResult Index()
+
+        public ActionResult Index(string palavraDeBusca)
         {
+            var pessoas = from p in _pessoas.listaPessoas
+                          select p;
+            if (!string.IsNullOrEmpty(palavraDeBusca))
+                pessoas = pessoas.Where(b => b.Nome.Contains(palavraDeBusca));
+
             //var pessoa = new Pessoa();
-            return View( _pessoas.listaPessoas);
+            //return View( _pessoas.listaPessoas);
+            return View(pessoas);
         }
 
         // GET: Pessoa/Create
