@@ -69,16 +69,19 @@ namespace Agenda.Controllers
         // GET: Pessoa/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var pessoa = _pessoas.listaPessoas.Where(s => s.id == id).FirstOrDefault();
+            return View(pessoa);
         }
 
         // POST: Pessoa/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Pessoa pessoa)
         {
             try
             {
-                // TODO: Add delete logic here
+                var itemIndex = _pessoas.listaPessoas.FindIndex(x => x.id == pessoa.id);
+                var item = _pessoas.listaPessoas.ElementAt(itemIndex);
+                _pessoas.listaPessoas.RemoveAt(itemIndex);
 
                 return RedirectToAction("Index");
             }
