@@ -1,5 +1,6 @@
 ﻿using Agenda.Models;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Agenda.Controllers
 {
@@ -13,54 +14,42 @@ namespace Agenda.Controllers
             return View( _pessoas.listaPessoas);
         }
 
-        // GET: Pessoa/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Pessoa/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // GET: Pessoa/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+ 
+
         // POST: Pessoa/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Pessoa pessoa)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _pessoas.CriaPessoa(pessoa);
+            return View();
         }
 
         // GET: Pessoa/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string nome)
         {
-            return View();
+            var pessoa = _pessoas.listaPessoas.Where(s => s.Nome == nome).FirstOrDefault();
+            return View(pessoa);
         }
 
         // POST: Pessoa/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Pessoa pessoa)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var nome = pessoa.Nome;
+            var sobrenome = pessoa.Sobrenome;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Pessoa/Delete/5

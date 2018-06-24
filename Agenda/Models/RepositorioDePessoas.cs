@@ -18,5 +18,10 @@ namespace Agenda.Models
                 DataDeAniversario = Convert.ToDateTime("05/09/1975")
             });
         }
+
+        public void CriaPessoa(Pessoa pessoa)
+        {
+            listaPessoas.Add(pessoa);
+        }
     }
 }
