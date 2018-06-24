@@ -20,12 +20,6 @@ namespace Agenda.Controllers
             return View();
         }
 
-        // GET: Pessoa/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
- 
 
         // POST: Pessoa/Create
         [HttpPost]
@@ -35,10 +29,19 @@ namespace Agenda.Controllers
             return View();
         }
 
-        // GET: Pessoa/Edit/5
-        public ActionResult Edit(string nome)
+        // GET: Pessoa/Details/5
+        public ActionResult Details(int id)
         {
-            var pessoa = _pessoas.listaPessoas.Where(s => s.Nome == nome).FirstOrDefault();
+            return View();
+        }
+ 
+
+ 
+
+        // GET: Pessoa/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var pessoa = _pessoas.listaPessoas.Where(s => s.id == id).FirstOrDefault();
             return View(pessoa);
         }
 
@@ -46,8 +49,21 @@ namespace Agenda.Controllers
         [HttpPost]
         public ActionResult Edit(Pessoa pessoa)
         {
-            var nome = pessoa.Nome;
-            var sobrenome = pessoa.Sobrenome;
+            if (!ModelState.IsValid) return View();
+
+            //var original = (from item in _pessoas.listaPessoas where item.id == pessoa.id select item).First();
+
+            var itemIndex = _pessoas.listaPessoas.FindIndex(x => x.id == pessoa.id);
+            var item = _pessoas.listaPessoas.ElementAt(itemIndex);
+            _pessoas.listaPessoas.RemoveAt(itemIndex);
+            item.id = pessoa.id;
+            item.Nome = pessoa.Nome;
+            item.Sobrenome = pessoa.Sobrenome;
+            item.DataDeAniversario = pessoa.DataDeAniversario;
+            _pessoas.listaPessoas.Insert(itemIndex, item);
+
+
+            //var nome = pessoa.nome
 
             return RedirectToAction("Index");
         }

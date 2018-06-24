@@ -13,6 +13,7 @@ namespace Agenda.Models
         {
             listaPessoas.Add(new Pessoa
             {
+                id = 1,
                 Nome = "Leo",
                 Sobrenome = "Messi",
                 DataDeAniversario = Convert.ToDateTime("05/09/1975")
