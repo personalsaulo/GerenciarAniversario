@@ -32,12 +32,10 @@ namespace Agenda.Controllers
         // GET: Pessoa/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var pessoa = _pessoas.listaPessoas.Where(s => s.id == id).FirstOrDefault();
+            return View(pessoa);
         }
  
-
- 
-
         // GET: Pessoa/Edit/5
         public ActionResult Edit(int id)
         {
